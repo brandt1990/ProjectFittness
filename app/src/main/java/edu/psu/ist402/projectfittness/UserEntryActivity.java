@@ -93,9 +93,5 @@ public class UserEntryActivity extends Activity {
         public void onDateSet(DatePicker view, int year, int month, int day) {
             //blah
         }
-
-
-
-
     }
 }
