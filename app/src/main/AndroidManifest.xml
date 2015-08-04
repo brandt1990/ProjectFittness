@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".UserEntryActivity"
+            android:label="@string/title_activity_entry_activity" >
+        </activity>
+        <activity
+            android:name=".UserSummaryActivity"
+            android:label="@string/title_activity_user_summary" >
+        </activity>
     </application>
 
 </manifest>
