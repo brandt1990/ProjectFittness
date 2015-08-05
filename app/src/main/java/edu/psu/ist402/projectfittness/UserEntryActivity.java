@@ -1,10 +1,10 @@
 package edu.psu.ist402.projectfittness;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,17 +16,19 @@ import java.util.Calendar;
 import java.util.Locale;
 
 
-public class UserEntry extends FragmentActivity {
+public class UserEntryActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_userentry);
+
+        addDatePickerOn((EditText)findViewById(R.id.editText_DOB));
     }
 
     private void addDatePickerOn(final EditText txtObj)
     {
-        String myFormat = "MM/dd/yyyy"; //In which you need put here
+        String myFormat = "MMMM dd, yyyy"; //In which you need put here
         final SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
 
         txtObj.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -42,7 +44,7 @@ public class UserEntry extends FragmentActivity {
                             //nextField.requestFocus(); //moves the focus to something else after dialog is closed
                         }
                     };
-                    datePickerFragment.show(UserEntry.this.getFragmentManager(), "datePicker");
+                    datePickerFragment.show(UserEntryActivity.this.getFragmentManager(), "datePicker");
                 }
             }
         });
@@ -81,7 +83,10 @@ public class UserEntry extends FragmentActivity {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, year-21, month, day);
+            dpd.getDatePicker().setMinDate(dpd.getDatePicker().getMinDate());
+            dpd.getDatePicker().setMaxDate(c.getTimeInMillis());
+            return dpd;
         }
 
         @Override
