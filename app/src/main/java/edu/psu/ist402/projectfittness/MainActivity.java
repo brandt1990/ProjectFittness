@@ -28,21 +28,16 @@ public class MainActivity extends ActionBarActivity {
         ListView lv;
 
 
-
-        for (String l : ls)
-        {
-            Log.d("Zunair",l);
+        for (String l : ls) {
+            Log.d("Zunair", l);
         }
-
 
 
         boolean userExists = false;
         if (!userExists) {
             Intent intent = new Intent(getApplicationContext(), UserEntryActivity.class);
             startActivity(intent);
-        }
-        else
-        {
+        } else {
             //Start user summary activity or update main activity layout to user summary
         }
 
