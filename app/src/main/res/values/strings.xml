@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">Project Fittness</string>
+    <string name="app_name">Human Health</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_user_summary">UserSummaryActivity</string>
-    <string name="title_activity_entry_activity" />
+    <string name="title_activity_user_summary">Summary</string>
+    <string name="title_activity_entry_activity"></string>
+    <string name="title_activity_workout">Workout</string>
+    <string name="title_activity_help">Help</string>
 </resources>
