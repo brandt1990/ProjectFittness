@@ -96,8 +96,9 @@
                     android:layout_gravity="center_horizontal"
                     android:weightSum="1">
                     <!--We can use this row as a template to make rows dynamically.
-                    Make a TableRow var, set that var with exerciseRowTemplate,
-                    then clone it as needed-->
+                    Get this row in a (TableRow)templateRow then,
+                    get the LayoutParams using templateRow.getLayoutParams,
+                    make a new row, then set the the LayoutParams from temp row-->
                     <TableRow
                         android:id="@+id/exerciseRowTemplate"
                         android:layout_width="fill_parent"
