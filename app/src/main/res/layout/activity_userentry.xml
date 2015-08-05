@@ -1,19 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".UserEntryActivity">
+    android:paddingTop="@dimen/activity_vertical_margin" tools:context=".UserEntryActivity">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible">
-
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -21,7 +17,6 @@
             android:gravity="center"
             android:minHeight="400dp"
             android:orientation="vertical">
-
             <EditText
                 android:id="@+id/editText_Name"
                 android:layout_width="wrap_content"
@@ -51,7 +46,7 @@
                 android:ems="10"
                 android:hint="Weight"
                 android:inputType="numberDecimal"
-                android:textSize="22dp" />
+                android:textSize="22dp"/>
 
 
             <EditText
@@ -62,7 +57,7 @@
                 android:ems="10"
                 android:hint="Height"
                 android:inputType="numberDecimal"
-                android:textSize="22dp" />
+                android:textSize="22dp"/>
 
             <Button
                 android:id="@+id/button"
@@ -71,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Let's Get Started!" />
+            android:text="Let's Get Started!"/>
 
         </LinearLayout>
 
