@@ -10,9 +10,26 @@ import java.util.List;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 /**
- * Created by Marc on 8/6/2015.
+ * Created by Marc
+ *
+ *
  * Uses Android SQLiteAssetHelper (http://github.com/jgilfelt/android-sqlite-asset-helper)
+ *
+ *
  * Dates are in Unix time
+ *
+ *
+ * PUBLIC METHODS:
+ *
+ * updateUser(String name, int birthdate, float height, float weight)
+ *
+ * getUserInfo()
+ *      RETURNS User OBJECT
+ *
+ * addExerciseProgress(int datetime, int id, int sets, int reps, int length)
+ *
+ * getExerciseProgressList()
+ *      RETURNS List<ExerciseProgress> OBJECT
  */
 
 

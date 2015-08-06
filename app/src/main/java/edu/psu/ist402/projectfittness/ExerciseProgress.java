@@ -11,6 +11,14 @@ public class ExerciseProgress {
     int reps;
     int length;
 
+    public ExerciseProgress(int datetime, int exercise_id, int sets, int reps, int length) {
+        this.datetime = datetime;
+        this.exercise_id = exercise_id;
+        this.sets = sets;
+        this.reps = reps;
+        this.length = length;
+    }
+
     public int getLength() {
         return length;
     }
@@ -50,16 +58,6 @@ public class ExerciseProgress {
     public void setReps(int reps) {
         this.reps = reps;
     }
-
-    public ExerciseProgress(int datetime, int exercise_id, int sets, int reps, int length) {
-        this.datetime = datetime;
-        this.exercise_id = exercise_id;
-        this.sets = sets;
-        this.reps = reps;
-        this.length = length;
-    }
-
-
 
 
 }
