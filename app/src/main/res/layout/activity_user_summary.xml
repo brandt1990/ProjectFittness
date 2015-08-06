@@ -317,14 +317,21 @@
             android:padding="20dp">
 
             <Button
+                android:id="@+id/btnPlayMusic"
+                style="@style/button_text"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/custom_button"
+                android:text="Play Music" />
+            <Button
                 android:id="@+id/btnExerciseEntry"
                 style="@style/button_text"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Exercise Entry" />
-
+                android:text="Start Exercise" />
             <Button
                 android:id="@+id/btnExercizeInfo"
                 style="@style/button_text"
@@ -333,15 +340,6 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
                 android:text="Exercise Info" />
-
-            <Button
-                android:id="@+id/btnPlayMusic"
-                style="@style/button_text"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/custom_button"
-                android:text="Play Music" />
         </LinearLayout>
 
     </RelativeLayout>
