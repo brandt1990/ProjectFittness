@@ -70,22 +70,23 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/linearLayout"
-            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Note: This information will only be used to identify you in this application and for calculation of your body type for exersize durations."
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="14dp" />
-        </LinearLayout>
 
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignBottom="@+id/relativeLayout"
+        android:gravity="bottom"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note: This information will only be used to identify you in this application and for calculation of your body type for exersize durations."
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="14dp" />
+    </LinearLayout>
 </RelativeLayout>

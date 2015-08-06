@@ -23,11 +23,10 @@ public class UserEntryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userentry);
 
-        addDatePickerOn((EditText)findViewById(R.id.editText_DOB));
+        addDatePickerOn((EditText) findViewById(R.id.editText_DOB));
     }
 
-    private void addDatePickerOn(final EditText txtObj)
-    {
+    private void addDatePickerOn(final EditText txtObj) {
         String myFormat = "MMMM dd, yyyy"; //In which you need put here
         final SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
 
@@ -72,7 +71,7 @@ public class UserEntryActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -83,7 +82,7 @@ public class UserEntryActivity extends Activity {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, year-21, month, day);
+            DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, year - 21, month, day);
             dpd.getDatePicker().setMinDate(dpd.getDatePicker().getMinDate());
             dpd.getDatePicker().setMaxDate(c.getTimeInMillis());
             return dpd;
