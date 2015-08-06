@@ -17,6 +17,13 @@ public class User {
         this.weight = weight;
     }
 
+    public User() {
+        this.name = "";
+        this.birthdate = 0;
+        this.height = 0;
+        this.weight = 0;
+    }
+
     public int getBirthdate() {
         return birthdate;
     }

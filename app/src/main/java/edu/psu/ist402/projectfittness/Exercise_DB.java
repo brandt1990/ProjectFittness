@@ -30,6 +30,12 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
  *
  * getExerciseProgressList()
  *      RETURNS List<ExerciseProgress> OBJECT
+ *
+ * getInfoForID(int id)
+ *      RETURNS ExerciseInfo OBJECT
+ *
+ * getExerciseNameList()
+ *      RETURNS List<ExerciseInfo> OBJECT
  */
 
 
@@ -59,12 +65,12 @@ public class Exercise_DB extends SQLiteAssetHelper {
     private static final String COLUMN_REPS = "REPS";
     private static final String COLUMN_LENGTH = "LENGTH";
     // Exercise_List
-    private static final String EXERCISE_ID = "EXERCISE_ID";
-    private static final String EXERCISE_NAME = "EXERCISE_NAME";
-    private static final String TARGETED_MUSCLE = "TARGETED_MUSCLE";
-    private static final String DIFFICULTY = "DIFFICULTY";
-    private static final String IMAGE_REF = "IMAGE_REF";
-    private static final String SUGGESTED_PATTERN = "SUGGESTED_PATTERN";
+    //private static final String COLUMN_EXERCISE_ID = "EXERCISE_ID"; //Duplicate
+    private static final String COLUMN_EXERCISE_NAME = "EXERCISE_NAME";
+    private static final String COLUMN_TARGETED_MUSCLE = "TARGETED_MUSCLE";
+    private static final String COLUMN_DIFFICULTY = "DIFFICULTY";
+    private static final String COLUMN_IMAGE_REF = "IMAGE_REF";
+    private static final String COLUMN_SUGGESTED_PATTERN = "SUGGESTED_PATTERN";
 
 
 
@@ -80,7 +86,9 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
 
 
-    //User DAO
+    //
+    // User DAO
+    //
 
 
     // Update User
@@ -104,88 +112,35 @@ public class Exercise_DB extends SQLiteAssetHelper {
     // Get UserInfo
     // Returns User object
     public User getUserInfo() {
-        User user = new User(getUserName(),getUserBirthdate(),getUserHeight(),getUserWeight());
+        User user = new User();
+
+        String selectQuery = "SELECT * FROM " + TABLE_USER + " ORDER BY " + COLUMN_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                User temp = new User(
+                        cursor.getString(cursor.getColumnIndex(COLUMN_NAME)),
+                        cursor.getInt(cursor.getColumnIndex(COLUMN_BIRTHDATE)),
+                        cursor.getFloat(cursor.getColumnIndex(COLUMN_HEIGHT)),
+                        cursor.getFloat(cursor.getColumnIndex(COLUMN_WEIGHT))
+                );
+                user = temp;
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        
         return user;
     }
 
 
-    // Get UserName
-    private String getUserName() {
-        String name =  "";
-
-        String selectQuery = "SELECT * FROM " + TABLE_USER;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-            } while (cursor.moveToNext());
-        }
-        db.close();
-
-        return name;
-    }
-
-
-    // Get UserBirthdate
-    private int getUserBirthdate() {
-        int birthdate = 0;
-
-        String selectQuery = "SELECT * FROM " + TABLE_USER;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                birthdate = cursor.getInt(cursor.getColumnIndex(COLUMN_BIRTHDATE));
-            } while (cursor.moveToNext());
-        }
-        db.close();
-
-        return birthdate;
-    }
-
-
-    // Get UserHeight
-    private float getUserHeight() {
-        float height = 0;
-
-        String selectQuery = "SELECT * FROM " + TABLE_USER;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                height = cursor.getInt(cursor.getColumnIndex(COLUMN_HEIGHT));
-            } while (cursor.moveToNext());
-        }
-        db.close();
-
-        return height;
-    }
-
-
-    // Get UserWeight
-    private float getUserWeight() {
-        float weight = 0;
-
-        String selectQuery = "SELECT * FROM " + TABLE_USER;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                weight = cursor.getInt(cursor.getColumnIndex(COLUMN_WEIGHT));
-            } while (cursor.moveToNext());
-        }
-        db.close();
-
-        return weight;
-    }
 
 
 
 
-
-
+    //
     // Progress DAO
+    //
 
 
     // Add ExerciseEntry
@@ -208,10 +163,8 @@ public class Exercise_DB extends SQLiteAssetHelper {
         List<ExerciseProgress> ExerciseProgressList = new ArrayList<ExerciseProgress>();
 
         String selectQuery = "SELECT * FROM " + TABLE_PROGRESS + " ORDER BY " + COLUMN_DATETIME;
-
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
         if (cursor.moveToFirst()) {
             do {
                 ExerciseProgress entry = new ExerciseProgress(
@@ -220,10 +173,11 @@ public class Exercise_DB extends SQLiteAssetHelper {
                         cursor.getInt(cursor.getColumnIndex(COLUMN_SETS)),
                         cursor.getInt(cursor.getColumnIndex(COLUMN_REPS)),
                         cursor.getInt(cursor.getColumnIndex(COLUMN_LENGTH))
-                        );
+                );
                 ExerciseProgressList.add(entry);
             } while (cursor.moveToNext());
         }
+        db.close();
 
         return ExerciseProgressList;
     }
@@ -231,7 +185,67 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
 
 
+
+
+    //
     // Exercise_List DAO
     // TODO
+
+
+    // Get InfoForId
+    // Returns ExerciseInfo object
+    public ExerciseInfo getInfoForID(int id) {
+        ExerciseInfo info = new ExerciseInfo();
+        info.setExercise_id(id);
+
+        String selectQuery = "SELECT * FROM " + TABLE_EXERCISE_LIST + " ORDER BY " + COLUMN_EXERCISE_ID;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Get info for matching id
+        if (cursor.moveToFirst()) {
+            do {
+                int current_id = cursor.getInt(cursor.getColumnIndex(COLUMN_EXERCISE_ID));
+                if ( current_id == id ) {
+                    info.setDifficulty(cursor.getString(cursor.getColumnIndex(COLUMN_DIFFICULTY)));
+                    info.setExercise_name(cursor.getString(cursor.getColumnIndex(COLUMN_EXERCISE_NAME)));
+                    info.setImage_ref(cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE_REF)));
+                    info.setSuggested_pattern(cursor.getString(cursor.getColumnIndex(COLUMN_SUGGESTED_PATTERN)));
+                    info.setTargeted_muscle(cursor.getString(cursor.getColumnIndex(COLUMN_TARGETED_MUSCLE)));
+                    break;
+                }
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+
+        return info;
+    }
+
+
+    // Get ExerciseNameList
+    // Returns a list of ExerciseInfo objects
+    public List<ExerciseInfo> getExerciseNameList() {
+        List<ExerciseInfo> ExerciseInfoList = new ArrayList<ExerciseInfo>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_EXERCISE_LIST + " ORDER BY " + COLUMN_EXERCISE_ID;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                ExerciseInfo info = new ExerciseInfo();
+                info.setExercise_id(cursor.getInt(cursor.getColumnIndex(COLUMN_EXERCISE_ID)));
+                info.setDifficulty(cursor.getString(cursor.getColumnIndex(COLUMN_DIFFICULTY)));
+                info.setExercise_name(cursor.getString(cursor.getColumnIndex(COLUMN_EXERCISE_NAME)));
+                info.setImage_ref(cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE_REF)));
+                info.setSuggested_pattern(cursor.getString(cursor.getColumnIndex(COLUMN_SUGGESTED_PATTERN)));
+                info.setTargeted_muscle(cursor.getString(cursor.getColumnIndex(COLUMN_TARGETED_MUSCLE)));
+                ExerciseInfoList.add(info);
+            } while (cursor.moveToNext());
+        }
+
+        return ExerciseInfoList;
+    }
 
 }
