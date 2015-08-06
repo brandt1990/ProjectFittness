@@ -7,7 +7,7 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
  * Uses Android SQLiteAssetHelper (http://github.com/jgilfelt/android-sqlite-asset-helper)
  * Dates are in Unix time
  */
-public class MyDatabase extends SQLiteAssetHelper {
+public class Exercise_DB extends SQLiteAssetHelper {
     private static final String DATABASE_NAME = "exercise.db";
 
     // Change this value when database changes
@@ -42,7 +42,7 @@ public class MyDatabase extends SQLiteAssetHelper {
 
 
 
-    public MyDatabase (Context context) {
+    public Exercise_DB (Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
