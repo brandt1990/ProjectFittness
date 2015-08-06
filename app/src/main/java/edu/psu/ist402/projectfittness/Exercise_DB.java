@@ -59,7 +59,6 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
     //User DAO
        // Update User
-    public void updateUser(String Name, Date Birthdate, float height, float weight) {
     public void updateUser(String name, int birthdate, float height, float weight) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -78,7 +77,6 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
     // Get UserName
     public String getUserName() {
-        return "";
         String name =  "";
 
         String selectQuery = "SELECT * FROM " + TABLE_USER;
@@ -95,8 +93,6 @@ public class Exercise_DB extends SQLiteAssetHelper {
     }
 
     // Get UserBirthdate
-    public String getUserBirthdate() {
-        return "";
     public int getUserBirthdate() {
         int birthdate = 0;
 
@@ -115,7 +111,6 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
     // Get UserHeight
     public float getUserHeight() {
-        return 0;
         float height = 0;
 
         String selectQuery = "SELECT * FROM " + TABLE_USER;
@@ -133,7 +128,6 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
     // Get UserWeight
     public float getUserWeight() {
-        return 0;
         float weight = 0;
 
         String selectQuery = "SELECT * FROM " + TABLE_USER;
