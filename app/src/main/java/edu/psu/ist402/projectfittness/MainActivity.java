@@ -71,7 +71,23 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            // Open User Entry activity
+            Intent myIntent = new Intent(getApplicationContext(), UserEntryActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
+        if (id == R.id.action_help) {
+            // Open Help activity
+            Intent myIntent = new Intent(getApplicationContext(), HelpActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
+        if (id == R.id.action_about) {
+            // Open About activity
+            Intent myIntent = new Intent(getApplicationContext(), AboutActivity.class);
+            startActivity(myIntent);
             return true;
         }
 

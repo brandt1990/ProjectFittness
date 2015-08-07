@@ -323,7 +323,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Play Music" />
+                android:text="Play Music"
+                android:onClick="onClickPlayMusic"/>
             <Button
                 android:id="@+id/btnExerciseEntry"
                 style="@style/button_text"
@@ -331,15 +332,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Start Exercise" />
+                android:text="Start Exercise"
+                android:onClick="onClickExerciseEntry"/>
             <Button
-                android:id="@+id/btnExercizeInfo"
+                android:id="@+id/btnExerciseInfo"
                 style="@style/button_text"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Exercise Info" />
+                android:text="Exercise Info"
+                android:onClick="onClickExerciseInfo"/>
         </LinearLayout>
 
     </RelativeLayout>

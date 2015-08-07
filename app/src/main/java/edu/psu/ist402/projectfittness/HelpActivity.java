@@ -1,5 +1,6 @@
 package edu.psu.ist402.projectfittness;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,6 +31,21 @@ public class HelpActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            // Open User Entry activity
+            Intent myIntent = new Intent(getApplicationContext(), UserEntryActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
+        if (id == R.id.action_help) {
+            // Open Help activity
+            Intent myIntent = new Intent(getApplicationContext(), HelpActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
+        if (id == R.id.action_about) {
+            // Open About activity
+            Intent myIntent = new Intent(getApplicationContext(), AboutActivity.class);
+            startActivity(myIntent);
             return true;
         }
 

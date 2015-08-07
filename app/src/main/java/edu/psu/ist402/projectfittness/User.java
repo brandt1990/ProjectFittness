@@ -1,5 +1,9 @@
 package edu.psu.ist402.projectfittness;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  * Stores data for a user
  */
@@ -53,6 +57,12 @@ public class User {
 
     public void setHeight(float height) {
         this.height = height;
+    }
+
+    // Calculate user age
+    // TODO
+    public float getAge() {
+        return 0;
     }
 
 }
