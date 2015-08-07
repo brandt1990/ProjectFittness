@@ -33,15 +33,27 @@ public class MainActivity extends ActionBarActivity {
         }
 
 
-        boolean userExists = false;
-        if (!userExists) {
+        if (!userExists()) {
             Intent intent = new Intent(getApplicationContext(), UserEntryActivity.class);
             startActivity(intent);
         } else {
             //Start user summary activity or update main activity layout to user summary
+            Intent myIntent = new Intent(getApplicationContext(), UserSummaryActivity.class);
+            startActivity(myIntent);
         }
 
 
+    }
+
+    // Check if a user exists
+    private boolean userExists() {
+        Exercise_DB db = new Exercise_DB(this);
+        User user = db.getUserInfo();
+        if (user.getName() != null && user.getName() != "") {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

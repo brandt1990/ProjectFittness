@@ -1,38 +1,33 @@
 package edu.psu.ist402.projectfittness;
 
 /**
- * Created by Marc
  * Stores data for a user
  */
-
 public class User {
     String name;
-    int birthdate;
+    String birthdate;
     float height;
     float weight;
 
-
-    public User(String name, int birthdate, float height, float weight) {
+    public User(String name, String birthdate, float height, float weight) {
         this.name = name;
         this.birthdate = birthdate;
         this.height = height;
         this.weight = weight;
     }
 
-
     public User() {
         this.name = "";
-        this.birthdate = 0;
+        this.birthdate = "";
         this.height = 0;
         this.weight = 0;
     }
 
-
-    public int getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(int birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

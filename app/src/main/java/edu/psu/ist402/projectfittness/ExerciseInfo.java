@@ -1,7 +1,6 @@
 package edu.psu.ist402.projectfittness;
 
 /**
- * Created by Marc
  *  Stores data for a single exercise
  */
 
@@ -22,7 +21,6 @@ public class ExerciseInfo {
         this.image_ref = image_ref;
         this.suggested_pattern = suggested_pattern;
     }
-
 
     public ExerciseInfo() {
         this.exercise_id = 0;

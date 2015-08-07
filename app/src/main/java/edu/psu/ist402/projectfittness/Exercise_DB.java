@@ -10,18 +10,12 @@ import java.util.List;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 /**
- * Created by Marc
- *
- *
  * Uses Android SQLiteAssetHelper (http://github.com/jgilfelt/android-sqlite-asset-helper)
- *
- *
- * Dates are in Unix time
  *
  *
  * PUBLIC METHODS:
  *
- * updateUser(String name, int birthdate, float height, float weight)
+ * updateUser(String name, String birthdate, float height, float weight)
  *
  * getUserInfo()
  *      RETURNS User OBJECT
@@ -92,7 +86,7 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
 
     // Update User
-    public void updateUser(String name, int birthdate, float height, float weight) {
+    public void updateUser(String name, String birthdate, float height, float weight) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Delete existing data
@@ -102,7 +96,7 @@ public class Exercise_DB extends SQLiteAssetHelper {
         //Add user
         sql = "INSERT INTO " + TABLE_USER
                 + " (" + COLUMN_NAME + ", " + COLUMN_BIRTHDATE + ", " + COLUMN_HEIGHT + ", " + COLUMN_WEIGHT
-                + ") VALUES('" + name + "', " + birthdate + ", " + height + ", " + weight + ")";
+                + ") VALUES('" + name + "', '" + birthdate + "', " + height + ", " + weight + ")";
         db.execSQL(sql);
 
         db.close();
@@ -121,7 +115,7 @@ public class Exercise_DB extends SQLiteAssetHelper {
             do {
                 User temp = new User(
                         cursor.getString(cursor.getColumnIndex(COLUMN_NAME)),
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_BIRTHDATE)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_BIRTHDATE)),
                         cursor.getFloat(cursor.getColumnIndex(COLUMN_HEIGHT)),
                         cursor.getFloat(cursor.getColumnIndex(COLUMN_WEIGHT))
                 );
@@ -140,7 +134,7 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
     //
     // Progress DAO
-    //
+    // TODO needs updated to coincide with UI
 
 
     // Add ExerciseEntry
@@ -189,7 +183,7 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
     //
     // Exercise_List DAO
-    // TODO
+    // TODO needs updated to coincide with UI
 
 
     // Get InfoForId

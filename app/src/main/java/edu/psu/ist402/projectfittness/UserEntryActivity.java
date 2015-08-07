@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +25,8 @@ public class UserEntryActivity extends Activity {
         setContentView(R.layout.activity_userentry);
 
         addDatePickerOn((EditText) findViewById(R.id.editText_DOB));
+
+        displayUserInfo();
     }
 
     private void addDatePickerOn(final EditText txtObj) {
@@ -48,6 +51,51 @@ public class UserEntryActivity extends Activity {
             }
         });
     }
+
+
+    // Handle button click
+    public void onClickSubmit(View view) {
+        EditText editText_Name = (EditText) findViewById(R.id.editText_Name);
+        EditText editText_DOB = (EditText) findViewById(R.id.editText_DOB);
+        EditText editText_Weight = (EditText) findViewById(R.id.editText_Weight);
+        EditText editText_Height = (EditText) findViewById(R.id.editText_Height);
+
+        // Add User to DB
+        Exercise_DB db = new Exercise_DB(this);
+        db.updateUser(editText_Name.getText().toString(),
+                editText_DOB.getText().toString(),
+                Float.parseFloat(editText_Weight.getText().toString()),
+                Float.parseFloat(editText_Height.getText().toString()));
+        db.close();
+
+        // Open User Summary
+        Intent myIntent = new Intent(UserEntryActivity.this, UserSummaryActivity.class);
+        UserEntryActivity.this.startActivity(myIntent);
+    }
+
+
+    // Display user info if it exists
+    public void displayUserInfo() {
+        Exercise_DB db = new Exercise_DB(this);
+        User user = db.getUserInfo();
+        if (user.getName() != null && user.getName() != "") {
+            // Set info
+            EditText editText_Name = (EditText) findViewById(R.id.editText_Name);
+            EditText editText_DOB = (EditText) findViewById(R.id.editText_DOB);
+            EditText editText_Weight = (EditText) findViewById(R.id.editText_Weight);
+            EditText editText_Height = (EditText) findViewById(R.id.editText_Height);
+
+            editText_Name.setText(user.getName());
+            editText_DOB.setText(String.valueOf(user.getBirthdate()));
+            editText_Height.setText(String.valueOf(user.getHeight()));
+            editText_Weight.setText(String.valueOf(user.getWeight()));
+
+        }
+
+        db.close();
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
