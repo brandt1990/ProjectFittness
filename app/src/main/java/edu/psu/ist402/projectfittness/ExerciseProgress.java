@@ -2,14 +2,16 @@ package edu.psu.ist402.projectfittness;
 
 /**
  * Created by Marc
- * Stores data for a single exercise entry
+ * Stores data for a single exercise progress entry
  */
+
 public class ExerciseProgress {
     int datetime;
     int exercise_id;
     int sets;
     int reps;
     int length;
+
 
     public ExerciseProgress(int datetime, int exercise_id, int sets, int reps, int length) {
         this.datetime = datetime;
@@ -18,6 +20,16 @@ public class ExerciseProgress {
         this.reps = reps;
         this.length = length;
     }
+
+
+    public ExerciseProgress() {
+        this.datetime = 0;
+        this.exercise_id = 0;
+        this.sets = 0;
+        this.reps = 0;
+        this.length = 0;
+    }
+
 
     public int getLength() {
         return length;

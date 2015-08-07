@@ -4,11 +4,13 @@ package edu.psu.ist402.projectfittness;
  * Created by Marc
  * Stores data for a user
  */
+
 public class User {
     String name;
     int birthdate;
     float height;
     float weight;
+
 
     public User(String name, int birthdate, float height, float weight) {
         this.name = name;
@@ -17,12 +19,14 @@ public class User {
         this.weight = weight;
     }
 
+
     public User() {
         this.name = "";
         this.birthdate = 0;
         this.height = 0;
         this.weight = 0;
     }
+
 
     public int getBirthdate() {
         return birthdate;

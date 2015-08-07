@@ -231,7 +231,6 @@ public class Exercise_DB extends SQLiteAssetHelper {
         String selectQuery = "SELECT * FROM " + TABLE_EXERCISE_LIST + " ORDER BY " + COLUMN_EXERCISE_ID;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
         if (cursor.moveToFirst()) {
             do {
                 ExerciseInfo info = new ExerciseInfo();
@@ -244,6 +243,7 @@ public class Exercise_DB extends SQLiteAssetHelper {
                 ExerciseInfoList.add(info);
             } while (cursor.moveToNext());
         }
+		db.close();
 
         return ExerciseInfoList;
     }

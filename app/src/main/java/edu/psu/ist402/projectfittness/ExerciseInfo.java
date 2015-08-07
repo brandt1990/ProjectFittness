@@ -24,6 +24,16 @@ public class ExerciseInfo {
     }
 
 
+    public ExerciseInfo() {
+        this.exercise_id = 0;
+        this.exercise_name = "";
+        this.targeted_muscle = "";
+        this.difficulty = "";
+        this.image_ref = "";
+        this.suggested_pattern = "";
+    }
+
+
     public String getTargeted_muscle() {
         return targeted_muscle;
     }
