@@ -67,10 +67,6 @@ public class Exercise_DB extends SQLiteAssetHelper {
     private static final String COLUMN_SUGGESTED_PATTERN = "SUGGESTED_PATTERN";
 
 
-
-
-
-
     public Exercise_DB (Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -145,6 +141,19 @@ public class Exercise_DB extends SQLiteAssetHelper {
         String sql = "INSERT INTO " + TABLE_PROGRESS
                 + " (" + COLUMN_DATETIME + ", " + COLUMN_EXERCISE_ID + ", " + COLUMN_SETS + ", " + COLUMN_REPS + ", " + COLUMN_LENGTH
                 + ") VALUES(" + datetime + ", " + id + ", " + sets + ", " + reps + ", " + length + ")";
+        db.execSQL(sql);
+
+        db.close();
+    }
+
+    // Add new exercise
+    public void addExercise(String exercise_name, String suggested_pattern) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Add entry
+        String sql = "INSERT INTO " + TABLE_EXERCISE_LIST
+                + " (" + COLUMN_EXERCISE_NAME + ", " + COLUMN_SUGGESTED_PATTERN
+                + ") VALUES(\"" + exercise_name + "\", \"" + suggested_pattern + "\")";
         db.execSQL(sql);
 
         db.close();

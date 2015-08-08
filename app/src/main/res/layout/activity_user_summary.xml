@@ -17,11 +17,10 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:minHeight="300dp"
-            android:orientation="vertical"
-            android:layout_above="@+id/linearLayout2">
+            android:orientation="vertical">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -113,7 +112,7 @@
             <ScrollView
                 android:id="@+id/scrollView"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="100dp">
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -157,7 +156,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST1" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -167,7 +166,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST2" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -177,7 +176,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST3" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -187,7 +186,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST4" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -197,7 +196,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST5" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -207,7 +206,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST6" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -217,7 +216,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST7" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -227,7 +226,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST8" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -237,7 +236,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST9" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -247,7 +246,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST10" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -257,7 +256,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST11" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -267,7 +266,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST12" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -277,7 +276,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST13" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -287,7 +286,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST14" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -297,7 +296,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST15" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -307,7 +306,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST16" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -317,7 +316,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST17" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
 
                     <TableRow
@@ -327,7 +326,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SCROLL TEST18" />
+                            android:text="SCROLL TEST" />
                     </TableRow>
                 </TableLayout>
             </ScrollView>
@@ -338,41 +337,36 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:id="@+id/linearLayout2"
-            android:gravity="center_horizontal">
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <Button
                 android:id="@+id/btnPlayMusic"
                 style="@style/button_text"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/custom_button"
-                android:text="@string/button_play_music"
-                android:onClick="onClickPlayMusic"
-                android:layout_weight="1" />
-            <Button
-                android:id="@+id/btnExerciseEntry"
-                style="@style/button_text"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/custom_button"
-                android:text="@string/button_start_exercise"
-                android:onClick="onClickExerciseEntry"
-                android:layout_weight="1" />
-            <Button
-                android:id="@+id/btnExerciseInfo"
-                style="@style/button_text"
-                android:layout_width="0dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="@string/button_exercise_info"
-                android:onClick="onClickExerciseInfo"
-                android:layout_weight="1" />
+                android:text="Play Music"
+                android:onClick="onClickPlayMusic" />
+            <Button
+                android:id="@+id/btnExerciseEntry"
+                style="@style/button_text"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/custom_button"
+                android:text="Start Exercise"
+                android:onClick="onClickExerciseEntry" />
+            <Button
+                android:id="@+id/btnExerciseInfo"
+                style="@style/button_text"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/custom_button"
+                android:text="Exercise Info"
+                android:onClick="onClickExerciseInfo" />
         </LinearLayout>
 
     </RelativeLayout>

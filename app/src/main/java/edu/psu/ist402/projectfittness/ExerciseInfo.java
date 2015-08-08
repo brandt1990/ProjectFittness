@@ -11,6 +11,9 @@ public class ExerciseInfo {
     private String difficulty;
     private String image_ref;
     private String suggested_pattern;
+    private String setLength;
+    private String setCount;
+    private String repCount;
 
 
     public ExerciseInfo(int exercise_id, String exercise_name, String targeted_muscle, String difficulty, String image_ref, String suggested_pattern) {
@@ -65,7 +68,7 @@ public class ExerciseInfo {
     }
 
     public String getImage_ref() {
-        return image_ref;
+        return exercise_name.toLowerCase().replace(" ", "_").replace("-", "_");
     }
 
     public void setImage_ref(String image_ref) {
@@ -81,4 +84,27 @@ public class ExerciseInfo {
     }
 
 
+    public String getRepCount() {
+        return repCount;
+    }
+
+    public void setRepCount(String repCount) {
+        this.repCount = repCount;
+    }
+
+    public String getSetLength() {
+        return setLength;
+    }
+
+    public void setSetLength(String setLength) {
+        this.setLength = setLength;
+    }
+
+    public String getSetCount() {
+        return setCount;
+    }
+
+    public void setSetCount(String set) {
+        this.setCount = set;
+    }
 }

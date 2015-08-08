@@ -1,6 +1,8 @@
 package edu.psu.ist402.projectfittness;
 
 import android.annotation.TargetApi;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,11 +11,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,7 +42,10 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
     private void addExerciseList() {
         Exercise_DB db = new Exercise_DB(this);
 
+        //db.addExercise("Leg raises", "20,3,10");
+
         List<ExerciseInfo> exercises = db.getExerciseNameList();
+
         this.arraySpinner = new String[exercises.size()];
         for (int i = 0; i < exercises.size(); i++) {
             ExerciseInfo exercise = exercises.get(i);
@@ -55,6 +64,8 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
 
 
     boolean speakOptionOn = true;
+    Dialog settingsDialog;
+    ExerciseInfo selectedExerciseInfo;
 
     // "Begin/End Workout" button handler
     public void onClickBeginEndWorkout(View view) {
@@ -63,7 +74,30 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
             btnBeginEndWorkout.setText("End Workout");
 
             Speak("Alright. let's do this!");
-            // TODO timer start
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            //get which exercise is selected
+            Spinner spinnerExercises = (Spinner) findViewById(R.id.spinnerExercises);
+            String selectedExercise = spinnerExercises.getSelectedItem().toString();
+            selectedExerciseInfo = getSelectedExerciseInfoByName(selectedExercise);
+
+            //brief user about the exercise
+            String[] exercisePattern = selectedExerciseInfo.getSuggested_pattern().split(",");
+            selectedExerciseInfo.setSetLength(exercisePattern[0]);
+            selectedExerciseInfo.setSetCount(exercisePattern[1]);
+            selectedExerciseInfo.setRepCount(exercisePattern[2]);
+            String exerciseName = selectedExerciseInfo.getExercise_name();
+
+            Speak("For, " + exerciseName + " exercise. You have to do " + selectedExerciseInfo.getRepCount() + " reps. " +
+                    selectedExerciseInfo.getSetCount() + " times. each set in " + selectedExerciseInfo.getSetLength() + " seconds.");
+            Speak("Click the exercise image when you are ready!");
+
+            showExerciseInfo();
+
 
         } else if (btnBeginEndWorkout.getText().toString().contains("End")) {
             btnBeginEndWorkout.setText("Begin Workout");
@@ -71,6 +105,68 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
             Intent myIntent = new Intent(getApplicationContext(), UserSummaryActivity.class);
             startActivity(myIntent);
         }
+    }
+
+    public static int getResId(String resName, Class<?> c) {
+
+        try {
+            Field idField = c.getDeclaredField(resName);
+            return idField.getInt(idField);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    // open a dialog box with exercise image
+    private void showExerciseInfo() {
+        settingsDialog = new Dialog(this);
+        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
+        View imgDialog = getLayoutInflater().inflate(R.layout.image_layout, null);
+
+        ImageView exImage = (ImageView) imgDialog.findViewById(R.id.exerciseImage);
+        ((TextView) imgDialog.findViewById(R.id.tvSets)).setText(selectedExerciseInfo.getSetCount());
+        ((TextView) imgDialog.findViewById(R.id.tvReps)).setText(selectedExerciseInfo.getRepCount());
+        exImage.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                settingsDialog.dismiss();
+            }
+        });
+        exImage.setImageResource(this.getResources().
+                getIdentifier("drawable/" + selectedExerciseInfo.getImage_ref(), null, this.getPackageName()));
+        settingsDialog.setContentView(imgDialog);
+        settingsDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                //Log.d("",dialog.toString());
+                startWorkout();
+                // TODO timer start
+            }
+        });
+        settingsDialog.show();
+    }
+
+    public static void startWorkout() {
+
+
+    }
+
+    private ExerciseInfo getSelectedExerciseInfoByName(String exerciseName) {
+
+        Exercise_DB db = new Exercise_DB(this);
+        List<ExerciseInfo> exercises = db.getExerciseNameList();
+        ExerciseInfo exerciseInfo = null;
+
+        for (int i = 0; i < exercises.size(); i++) {
+            exerciseInfo = exercises.get(i);
+            if (exerciseName.toLowerCase().equals(exerciseInfo.getExercise_name().toLowerCase())) {
+                break;
+            }
+        }
+
+        return exerciseInfo;
     }
 
     private int MY_DATA_CHECK_CODE = 1;
@@ -147,8 +243,6 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
     @Override
     public void onInit(int status) {
         tts.setLanguage(Locale.US);
-
-
     }
 
     @Override
@@ -161,5 +255,8 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
     protected void onStop() {
         super.onStop();
         tts.shutdown();
+    }
+
+    public void dismissListener(View view) {
     }
 }
