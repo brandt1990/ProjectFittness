@@ -1,39 +1,35 @@
 package edu.psu.ist402.projectfittness;
 
-import android.app.DialogFragment;
-import android.content.DialogInterface;
+import android.annotation.TargetApi;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
+import android.speech.tts.TextToSpeech;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 
-public class ExerciseActivity extends ActionBarActivity {
+public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.OnInitListener {
 
     private String[] arraySpinner;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
-
-
         addExerciseList();
-
+        this.bundle = savedInstanceState;
     }
-
-
 
 
     // Populate exercise spinner
@@ -42,7 +38,7 @@ public class ExerciseActivity extends ActionBarActivity {
 
         List<ExerciseInfo> exercises = db.getExerciseNameList();
         this.arraySpinner = new String[exercises.size()];
-        for (int i=0; i<exercises.size(); i++) {
+        for (int i = 0; i < exercises.size(); i++) {
             ExerciseInfo exercise = exercises.get(i);
             arraySpinner[i] = exercise.getExercise_name();
         }
@@ -58,14 +54,18 @@ public class ExerciseActivity extends ActionBarActivity {
     }
 
 
+    boolean speakOptionOn = true;
 
     // "Begin/End Workout" button handler
     public void onClickBeginEndWorkout(View view) {
         Button btnBeginEndWorkout = (Button) findViewById(R.id.btnBeginEndWorkout);
-        if(btnBeginEndWorkout.getText().toString().contains("Begin")) {
+        if (btnBeginEndWorkout.getText().toString().contains("Begin")) {
             btnBeginEndWorkout.setText("End Workout");
+
+            Speak("Alright. let's do this!");
             // TODO timer start
-        } else if(btnBeginEndWorkout.getText().toString().contains("End")) {
+
+        } else if (btnBeginEndWorkout.getText().toString().contains("End")) {
             btnBeginEndWorkout.setText("Begin Workout");
             // TODO timer stop, store data?
             Intent myIntent = new Intent(getApplicationContext(), UserSummaryActivity.class);
@@ -73,15 +73,16 @@ public class ExerciseActivity extends ActionBarActivity {
         }
     }
 
+    private int MY_DATA_CHECK_CODE = 1;
+    private TextToSpeech tts;
 
 
     // "Add Previous Workout" button handler
     public void onClickExerciseInfo(View view) {
         // Enable date to be edited
-        EditText workoutDate = (EditText)findViewById(R.id.workoutDate);
+        EditText workoutDate = (EditText) findViewById(R.id.workoutDate);
         workoutDate.setEnabled(true);
     }
-
 
 
     @Override
@@ -125,5 +126,40 @@ public class ExerciseActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    void SpeakNew(String speech) {
+        CharSequence cs = speech;
+        tts.speak(cs, TextToSpeech.QUEUE_ADD, this.bundle, "0");
+    }
+
+    void Speak(String speech) {
+        if (speakOptionOn) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                SpeakNew(speech);
+            } else {
+                tts.speak(speech, TextToSpeech.QUEUE_ADD, null);
+            }
+        }
+    }
+
+    @Override
+    public void onInit(int status) {
+        tts.setLanguage(Locale.US);
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        tts = new TextToSpeech(this, this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        tts.shutdown();
     }
 }
