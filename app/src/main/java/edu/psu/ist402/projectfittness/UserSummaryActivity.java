@@ -83,8 +83,9 @@ public class UserSummaryActivity extends AppCompatActivity {
             // Open User Entry activity
             Intent myIntent = new Intent(getApplicationContext(), UserSummaryActivity.class);
             startActivity(myIntent);
-            return true;
             */
+            return true;
+
         }
         if (id == R.id.action_settings) {
             // Open User Entry activity

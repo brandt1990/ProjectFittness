@@ -47,8 +47,9 @@ public class HelpActivity extends ActionBarActivity {
             // Open Help activity
             Intent myIntent = new Intent(getApplicationContext(), HelpActivity.class);
             startActivity(myIntent);
-            return true;
             */
+            return true;
+
         }
         if (id == R.id.action_about) {
             // Open About activity

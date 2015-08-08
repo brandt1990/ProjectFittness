@@ -52,8 +52,9 @@ public class AboutActivity extends AppCompatActivity {
             // Open About activity
             Intent myIntent = new Intent(getApplicationContext(), AboutActivity.class);
             startActivity(myIntent);
-            return true;
             */
+            return true;
+
         }
 
         return super.onOptionsItemSelected(item);
