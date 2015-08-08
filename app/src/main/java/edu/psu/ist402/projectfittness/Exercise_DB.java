@@ -4,10 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 /**
  * Uses Android SQLiteAssetHelper (http://github.com/jgilfelt/android-sqlite-asset-helper)

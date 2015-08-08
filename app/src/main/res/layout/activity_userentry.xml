@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dip"
                 android:ems="10"
-                android:hint="Weight"
+                android:hint="Weight in lb"
                 android:inputType="numberDecimal"
                 android:textSize="22dp"
                 android:numeric="decimal" />
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dip"
                 android:ems="10"
-                android:hint="Height"
+                android:hint="Height in cm"
                 android:inputType="numberDecimal"
                 android:textSize="22dp"
                 android:numeric="decimal" />

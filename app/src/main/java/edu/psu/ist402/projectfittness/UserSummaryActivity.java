@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,15 +16,21 @@ public class UserSummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_summary);
 
-
         // Display user details
         TextView userName = (TextView) findViewById(R.id.userName);
         TextView userAge = (TextView) findViewById(R.id.userAge);
+        TextView userHeight = (TextView) findViewById(R.id.userHeight);
+        TextView userWeight = (TextView) findViewById(R.id.userWeight);
         Exercise_DB db = new Exercise_DB(this);
         User user = db.getUserInfo();
         userName.setText(user.getName());
         userAge.setText(user.getBirthdate());
-        //userAge.setText(String.valueOf(user.getAge()) + " years old);
+
+        //todo convert cm to ft
+        userHeight.setText(String.valueOf(user.getHeight()) + " cm");
+        userWeight.setText(String.valueOf(user.getWeight()) + " lbs.");
+
+        userAge.setText(String.valueOf(user.getAge()) + " years old");
     }
 
 
