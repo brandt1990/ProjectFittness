@@ -43,10 +43,12 @@ public class HelpActivity extends ActionBarActivity {
             return true;
         }
         if (id == R.id.action_help) {
+            /*
             // Open Help activity
             Intent myIntent = new Intent(getApplicationContext(), HelpActivity.class);
             startActivity(myIntent);
             return true;
+            */
         }
         if (id == R.id.action_about) {
             // Open About activity

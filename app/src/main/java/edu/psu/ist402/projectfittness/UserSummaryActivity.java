@@ -79,10 +79,12 @@ public class UserSummaryActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
 
         if (id == R.id.action_summary) {
+            /*
             // Open User Entry activity
             Intent myIntent = new Intent(getApplicationContext(), UserSummaryActivity.class);
             startActivity(myIntent);
             return true;
+            */
         }
         if (id == R.id.action_settings) {
             // Open User Entry activity

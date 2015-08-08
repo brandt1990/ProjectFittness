@@ -48,10 +48,12 @@ public class AboutActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_about) {
+            /*
             // Open About activity
             Intent myIntent = new Intent(getApplicationContext(), AboutActivity.class);
             startActivity(myIntent);
             return true;
+            */
         }
 
         return super.onOptionsItemSelected(item);
