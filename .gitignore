@@ -2,7 +2,15 @@
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
+/.idea
 .idea
 .DS_Store
 /build
 /captures
+app/app.iml
+.idea/modules.xml
+.idea/misc.xml
+.idea/gradle.xml
+.idea/.name
+.idea/encodings.xml
+.idea/runConfigurations.xml
