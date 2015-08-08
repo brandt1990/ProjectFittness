@@ -92,7 +92,7 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
             selectedExerciseInfo.setRepCount(exercisePattern[2]);
             String exerciseName = selectedExerciseInfo.getExercise_name();
 
-            Speak("For, " + exerciseName + " exercise. You have to do " + selectedExerciseInfo.getRepCount() + " reps. " +
+            Speak("For, " + exerciseName + " workout. You have to do " + selectedExerciseInfo.getRepCount() + " reps. " +
                     selectedExerciseInfo.getSetCount() + " times. each set in " + selectedExerciseInfo.getSetLength() + " seconds.");
             Speak("Click the exercise image when you are ready!");
 
