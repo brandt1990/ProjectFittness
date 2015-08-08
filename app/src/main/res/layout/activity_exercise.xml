@@ -63,14 +63,15 @@
                     android:weightSum="3">
 
                     <EditText
-                        android:id="@+id/userName"
+                        android:id="@+id/workoutDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="0"
                         android:layout_gravity="left"
                         android:layout_weight="1"
                         android:editable="false"
-                        android:text="DateTime.Now" />
+                        android:text="DateTime.Now"
+                        android:enabled="false"/>
 
                     <EditText
                         android:id="@+id/workoutStartTime"
@@ -161,7 +162,6 @@
                 android:padding="20dp"
                 android:textStyle="bold" />
 
-            <!--Change Begin to End when clicked-->
             <Button
                 android:id="@+id/btnBeginEndWorkout"
                 style="@style/button_text"
@@ -169,9 +169,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Begin/End Workout" />
+                android:text="Begin Workout"
+                android:onClick="onClickBeginEndWorkout"/>
 
-            <!--Enable editing of date/time when add workout is clicked -->
+
             <Button
                 android:id="@+id/btnExerciseInfo"
                 style="@style/button_text"
@@ -179,7 +180,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Add previous workout" />
+                android:text="Add previous workout"
+                android:onClick="onClickExerciseInfo"/>
 
         </LinearLayout>
 

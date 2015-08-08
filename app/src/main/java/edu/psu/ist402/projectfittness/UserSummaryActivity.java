@@ -24,7 +24,6 @@ public class UserSummaryActivity extends AppCompatActivity {
         Exercise_DB db = new Exercise_DB(this);
         User user = db.getUserInfo();
         userName.setText(user.getName());
-        userAge.setText(user.getBirthdate());
 
         //todo convert cm to ft
         userHeight.setText(String.valueOf(user.getHeight()) + " cm");

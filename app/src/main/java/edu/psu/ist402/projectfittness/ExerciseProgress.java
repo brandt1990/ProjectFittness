@@ -5,11 +5,11 @@ package edu.psu.ist402.projectfittness;
  */
 
 public class ExerciseProgress {
-    int datetime;
-    int exercise_id;
-    int sets;
-    int reps;
-    int length;
+    private int datetime;
+    private int exercise_id;
+    private int sets;
+    private int reps;
+    private int length;
 
 
     public ExerciseProgress(int datetime, int exercise_id, int sets, int reps, int length) {

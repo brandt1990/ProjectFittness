@@ -5,12 +5,12 @@ package edu.psu.ist402.projectfittness;
  */
 
 public class ExerciseInfo {
-    int exercise_id;
-    String exercise_name;
-    String targeted_muscle;
-    String difficulty;
-    String image_ref;
-    String suggested_pattern;
+    private int exercise_id;
+    private String exercise_name;
+    private String targeted_muscle;
+    private String difficulty;
+    private String image_ref;
+    private String suggested_pattern;
 
 
     public ExerciseInfo(int exercise_id, String exercise_name, String targeted_muscle, String difficulty, String image_ref, String suggested_pattern) {

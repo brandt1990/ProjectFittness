@@ -134,7 +134,7 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
     //
     // Progress DAO
-    // TODO needs updated to coincide with UI
+    // TODO code and packaged db table need updated to coincide with UI
 
 
     // Add ExerciseEntry
@@ -183,7 +183,7 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
     //
     // Exercise_List DAO
-    // TODO needs updated to coincide with UI
+    // TODO code and packaged db table need updated to coincide with UI
 
 
     // Get InfoForId
