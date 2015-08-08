@@ -350,9 +350,8 @@
                 android:layout_height="fill_parent"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Play Music"
+                android:text="@string/button_play_music"
                 android:onClick="onClickPlayMusic"
-                android:elegantTextHeight="false"
                 android:layout_weight="1" />
             <Button
                 android:id="@+id/btnExerciseEntry"
@@ -361,7 +360,7 @@
                 android:layout_height="fill_parent"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Start Exercise"
+                android:text="@string/button_start_exercise"
                 android:onClick="onClickExerciseEntry"
                 android:layout_weight="1" />
             <Button
@@ -371,7 +370,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Exercise Info"
+                android:text="@string/button_exercise_info"
                 android:onClick="onClickExerciseInfo"
                 android:layout_weight="1" />
         </LinearLayout>
