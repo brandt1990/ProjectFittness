@@ -3,18 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".UserEntryActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_summary"
         android:orderInCategory="100"
-        android:title="Edit User"
+        android:title="User Summary"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="200"
+        android:title="User Edit"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_help"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
         android:title="Help"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
-        android:orderInCategory="300"
+        android:orderInCategory="400"
         android:title="About"
         app:showAsAction="never" />
 </menu>

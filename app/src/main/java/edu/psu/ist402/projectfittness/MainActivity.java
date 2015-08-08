@@ -49,6 +49,7 @@ public class MainActivity extends ActionBarActivity {
     private boolean userExists() {
         Exercise_DB db = new Exercise_DB(this);
         User user = db.getUserInfo();
+        db.close();
         if (user.getName() != null && user.getName() != "") {
             return true;
         } else {
@@ -71,7 +72,12 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_summary) {
+            // Open User Entry activity
+            Intent myIntent = new Intent(getApplicationContext(), UserSummaryActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
         if (id == R.id.action_settings) {
             // Open User Entry activity
             Intent myIntent = new Intent(getApplicationContext(), UserEntryActivity.class);

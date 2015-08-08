@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -103,22 +104,27 @@ public class UserEntryActivity extends Activity {
     public void displayUserInfo() {
         Exercise_DB db = new Exercise_DB(this);
         User user = db.getUserInfo();
+        db.close();
+        // Check if a user exists
         if (user.getName() != null && user.getName() != "") {
+
             // Set info
             EditText editText_Name = (EditText) findViewById(R.id.editText_Name);
             EditText editText_DOB = (EditText) findViewById(R.id.editText_DOB);
             EditText editText_Weight = (EditText) findViewById(R.id.editText_Weight);
             EditText editText_Height = (EditText) findViewById(R.id.editText_Height);
-
             editText_Name.setText(user.getName());
             //editText_DOB.setText(String.valueOf(user.getBirthdate()));
             editText_DOB.setText(user.getBirthdate("MMMM dd, yyyy"));
             editText_Height.setText(String.valueOf(user.getHeight()));
             editText_Weight.setText(String.valueOf(user.getWeight()));
 
+            // Change label on button
+            Button btnSubmit = (Button) findViewById(R.id.btnSubmit);
+            btnSubmit.setText("Update");
+
         }
 
-        db.close();
     }
 
 
