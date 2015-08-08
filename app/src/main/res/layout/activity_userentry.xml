@@ -3,7 +3,9 @@
     android:layout_height="match_parent" android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" tools:context=".UserEntryActivity">
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".UserEntryActivity"
+    android:id="@+id/mainLayout">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -72,23 +74,24 @@
             android:text="Let's Get Started!"/>
 
         </LinearLayout>
+    </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/relativeLayout"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/linearLayout"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Note: This information will only be used to identify you in this application and for calculation of your body type for exercise durations."
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="14dp" />
-        </LinearLayout>
-
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:text="Note: This information will only be used to identify you in this application and for calculation of your body type for exercise durations."
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="14dp" />
     </RelativeLayout>
 
 </RelativeLayout>
