@@ -1,6 +1,7 @@
 package edu.psu.ist402.projectfittness;
 
 /**
+ * Exercise Progress Model
  * Stores data for a single exercise progress entry
  */
 

@@ -59,7 +59,6 @@ public class Exercise_DB extends SQLiteAssetHelper {
     private static final String COLUMN_REPS = "REPS";
     private static final String COLUMN_LENGTH = "LENGTH";
     // Exercise_List
-    //private static final String COLUMN_EXERCISE_ID = "EXERCISE_ID"; //Duplicate
     private static final String COLUMN_EXERCISE_NAME = "EXERCISE_NAME";
     private static final String COLUMN_TARGETED_MUSCLE = "TARGETED_MUSCLE";
     private static final String COLUMN_DIFFICULTY = "DIFFICULTY";
@@ -130,7 +129,7 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
     //
     // Progress DAO
-    // TODO code and packaged db table need updated to coincide with UI
+    //
 
 
     // Add ExerciseEntry
@@ -192,7 +191,7 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
     //
     // Exercise_List DAO
-    // TODO code and packaged db table need updated to coincide with UI
+    //
 
 
     // Get InfoForId

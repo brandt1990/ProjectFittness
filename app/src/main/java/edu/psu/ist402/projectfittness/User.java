@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
+ * User Model
  * Stores data for a user
  */
 public class User {
