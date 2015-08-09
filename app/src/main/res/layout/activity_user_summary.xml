@@ -224,7 +224,7 @@
                 android:text="@string/button_start_exercise"
                 android:onClick="onClickExerciseEntry"
                 android:layout_weight="1" />
-            <Button
+            Button
                 android:id="@+id/btnExerciseInfo"
                 style="@style/button_text"
                 android:layout_width="0dp"
