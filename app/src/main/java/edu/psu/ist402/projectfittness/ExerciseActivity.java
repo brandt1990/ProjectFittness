@@ -148,9 +148,7 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
             endWorkout(true);
 
 
-
-            Intent myIntent = new Intent(getApplicationContext(), UserSummaryActivity.class);
-            startActivity(myIntent);
+            onNavigateUpFromChild(this);
         }
     }
 
