@@ -6,12 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +21,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,7 +38,26 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
         addExerciseList();
+        workoutSetsTimeLeft = (TextView) findViewById(R.id.workoutSetsTimeLeft);
         this.bundle = savedInstanceState;
+        ((EditText) findViewById(R.id.workoutDate)).setText(
+                new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
+
+//        ((Button) findViewById(R.id.btnBeginEndWorkout)).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Button b = (Button) v;
+//                if (b.getText().equals("stop")) {
+//                    timerHandler.removeCallbacks(timerRunnable);
+//                    b.setText("start");
+//                } else {
+//                    startTime = System.currentTimeMillis();
+//                    timerHandler.postDelayed(timerRunnable, 0);
+//                    b.setText("stop");
+//                }
+//            }
+//        });
+
     }
 
 
@@ -54,11 +77,33 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
 
         db.close();
 
-        Spinner spinnerExercises = (Spinner) findViewById(R.id.spinnerExercises);
+        final Spinner spinnerExercises = (Spinner) findViewById(R.id.spinnerExercises);
         spinnerExercises.setAdapter(null);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, arraySpinner);
         spinnerExercises.setAdapter(adapter);
+        spinnerExercises.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedExercise = parent.getItemAtPosition(position).toString();
+                //store selected exercise
+                selectedExerciseInfo = getSelectedExerciseInfoByName(selectedExercise);
+                String[] exercisePattern = selectedExerciseInfo.getSuggested_pattern().split(",");
+                selectedExerciseInfo.setSetLength(exercisePattern[0]);
+                selectedExerciseInfo.setSetCount(exercisePattern[1]);
+                selectedExerciseInfo.setRepCount(exercisePattern[2]);
+
+                //Update view
+                ((TextView) findViewById(R.id.tvSets)).setText(selectedExerciseInfo.getSetCount());
+                ((TextView) findViewById(R.id.tvReps)).setText(selectedExerciseInfo.getRepCount());
+                ((TextView) findViewById(R.id.tvLen)).setText(selectedExerciseInfo.getSetLength());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
@@ -66,11 +111,13 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
     boolean speakOptionOn = true;
     Dialog settingsDialog;
     ExerciseInfo selectedExerciseInfo;
+    ExerciseProgress currentExerciseProgress;
 
     // "Begin/End Workout" button handler
     public void onClickBeginEndWorkout(View view) {
         Button btnBeginEndWorkout = (Button) findViewById(R.id.btnBeginEndWorkout);
         if (btnBeginEndWorkout.getText().toString().contains("Begin")) {
+            currentExerciseProgress = new ExerciseProgress();
             btnBeginEndWorkout.setText("End Workout");
 
             Speak("Alright. let's do this!");
@@ -80,16 +127,12 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
                 e.printStackTrace();
             }
 
-            //get which exercise is selected
-            Spinner spinnerExercises = (Spinner) findViewById(R.id.spinnerExercises);
-            String selectedExercise = spinnerExercises.getSelectedItem().toString();
-            selectedExerciseInfo = getSelectedExerciseInfoByName(selectedExercise);
+//            //get which exercise is selected
+//            Spinner spinnerExercises = (Spinner) findViewById(R.id.spinnerExercises);
+//            String selectedExercise = spinnerExercises.getSelectedItem().toString();
+//            selectedExerciseInfo = getSelectedExerciseInfoByName(selectedExercise);
 
             //brief user about the exercise
-            String[] exercisePattern = selectedExerciseInfo.getSuggested_pattern().split(",");
-            selectedExerciseInfo.setSetLength(exercisePattern[0]);
-            selectedExerciseInfo.setSetCount(exercisePattern[1]);
-            selectedExerciseInfo.setRepCount(exercisePattern[2]);
             String exerciseName = selectedExerciseInfo.getExercise_name();
 
             Speak("For, " + exerciseName + " workout. You have to do " + selectedExerciseInfo.getRepCount() + " reps. " +
@@ -101,20 +144,13 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
 
         } else if (btnBeginEndWorkout.getText().toString().contains("End")) {
             btnBeginEndWorkout.setText("Begin Workout");
-            // TODO timer stop, store data?
+
+            endWorkout(true);
+
+
+
             Intent myIntent = new Intent(getApplicationContext(), UserSummaryActivity.class);
             startActivity(myIntent);
-        }
-    }
-
-    public static int getResId(String resName, Class<?> c) {
-
-        try {
-            Field idField = c.getDeclaredField(resName);
-            return idField.getInt(idField);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
         }
     }
 
@@ -142,15 +178,139 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
             public void onDismiss(DialogInterface dialog) {
                 //Log.d("",dialog.toString());
                 startWorkout();
-                // TODO timer start
+
             }
         });
         settingsDialog.show();
     }
 
-    public static void startWorkout() {
+    private static TextView workoutSetsTimeLeft;
+    long startTime = 0;
+    private boolean booWaiting;
 
+    Handler timerHandler;
+    Runnable timerRunnable = new Runnable() {
 
+        @Override
+        public void run() {
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis / 1000);
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+            boolean exit = false;
+
+            String waiting = "";
+
+            //workoutSetsTimeLeft.setText(String.format("%d:%02d", minutes, seconds));
+            //Time left to complete a set
+            Integer timeLeft = seconds * -1;
+            int currentSec = ((seconds * -1) + 1);
+
+            if (timeLeft == 0) {
+                int t = Integer.parseInt(selectedExerciseInfo.getSetCount()) - 1;
+                currentExerciseProgress.setSets(currentExerciseProgress.getSets() + 1);
+
+                if (t == 0) {
+                    Speak("Great! on to next exercise.");
+                    Speak("You can wait another 60 seconds if you like.");
+                    exit = true;
+                } else {
+                    if (!booWaiting) {
+                        selectedExerciseInfo.setSetCount(String.valueOf(t));
+                        startTime = System.currentTimeMillis() + (60 * 1000);
+                        if (t == 1) {
+                            Speak("Great. now wait another 60 seconds.");
+                            Speak("Only " + t + " more set to go.");
+                        } else {
+                            Speak("OK. now wait 60 seconds.");
+                            Speak(t + " more sets to go.");
+                        }
+                        booWaiting = true;
+                    } else {
+                        startTime = System.currentTimeMillis() + ((Integer.parseInt(selectedExerciseInfo.getSetLength())) * 1000);
+                        Speak("Start the next set now.");
+                        booWaiting = false;
+                    }
+                }
+            }
+
+            updateTime(currentSec);
+
+            if (exit | endWorkoutForce) {
+                sleepFor(1);
+                workoutSetsTimeLeft.setVisibility(View.GONE);
+                if (!endWorkoutForce) {
+                    endWorkout(false);
+                }
+                return; //exits timer thread
+            }
+            timerHandler.postDelayed(this, 1000);
+        }
+    };
+
+    void sleepFor(int secs) {
+        try {
+            Thread.sleep(secs * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    String waiting = "";
+
+    void updateTime(int currentSec) {
+        if (currentSec == 1) {
+            workoutSetsTimeLeft.setText(waiting + String.valueOf(currentSec) + " second");
+        } else {
+            workoutSetsTimeLeft.setText(waiting + String.valueOf(currentSec) + " seconds");
+        }
+        if (booWaiting) {
+            waiting = "Wait ";
+        } else {
+            waiting = "";
+        }
+    }
+
+    public void startWorkout() {
+
+        startTime = System.currentTimeMillis() + (Integer.parseInt(selectedExerciseInfo.getSetLength()) * 1000);
+        timerHandler = new Handler();
+        timerHandler.postDelayed(timerRunnable, 0);
+        workoutSetsTimeLeft.setVisibility(View.VISIBLE);
+        Calendar now = Calendar.getInstance();
+        Date dt = now.getTime();
+        currentExerciseProgress.setEnd_datetime(now.getTimeInMillis());
+        ((EditText) findViewById(R.id.workoutStartTime)).setText(
+                new SimpleDateFormat("HH:mm:ss").format(dt));
+
+    }
+
+    boolean endWorkoutForce = false;
+
+    public void endWorkout(boolean forceEnd) {
+
+        endWorkoutForce = forceEnd;
+
+        if (endWorkoutForce) {
+            timerHandler.removeCallbacks(timerRunnable);
+            workoutSetsTimeLeft.setVisibility(View.GONE);
+            Calendar now = Calendar.getInstance();
+            Date dt = now.getTime();
+            currentExerciseProgress.setStart_datetime(now.getTimeInMillis());
+            ((EditText) findViewById(R.id.workoutEndTime)).setText(
+                    new SimpleDateFormat("HH:mm:ss").format(dt));
+        }
+
+        // TODO updateLog/store data
+        Exercise_DB db = new Exercise_DB(this);
+
+        currentExerciseProgress.setExercise_id(selectedExerciseInfo.getExercise_id());
+
+        db.addExerciseProgress(
+                currentExerciseProgress.getStart_datetime(),
+                currentExerciseProgress.getEnd_datetime(),
+                currentExerciseProgress.getSets(),
+                currentExerciseProgress.getExercise_id());
     }
 
     private ExerciseInfo getSelectedExerciseInfoByName(String exerciseName) {
@@ -224,10 +384,12 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
         return super.onOptionsItemSelected(item);
     }
 
+    Integer speechID = 0;
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     void SpeakNew(String speech) {
         CharSequence cs = speech;
-        tts.speak(cs, TextToSpeech.QUEUE_ADD, this.bundle, "0");
+        speechID = speechID + 1;
+        tts.speak(cs, TextToSpeech.QUEUE_ADD, this.bundle, String.valueOf(speechID));
     }
 
     void Speak(String speech) {

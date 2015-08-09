@@ -53,11 +53,10 @@ public class Exercise_DB extends SQLiteAssetHelper {
     private static final String COLUMN_HEIGHT = "HEIGHT";
     private static final String COLUMN_WEIGHT = "WEIGHT";
     // Progress
-    private static final String COLUMN_DATETIME = "DATETIME";
+    private static final String COLUMN_START_DATETIME = "START_DATETIME";
+    private static final String COLUMN_END_DATETIME = "END_DATETIME";
     private static final String COLUMN_EXERCISE_ID = "EXERCISE_ID";
     private static final String COLUMN_SETS = "SETS";
-    private static final String COLUMN_REPS = "REPS";
-    private static final String COLUMN_LENGTH = "LENGTH";
     // Exercise_List
     //private static final String COLUMN_EXERCISE_ID = "EXERCISE_ID"; //Duplicate
     private static final String COLUMN_EXERCISE_NAME = "EXERCISE_NAME";
@@ -71,15 +70,9 @@ public class Exercise_DB extends SQLiteAssetHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-
-
-
-
-
     //
     // User DAO
     //
-
 
     // Update User
     public void updateUser(String name, String birthdate, float height, float weight) {
@@ -123,24 +116,19 @@ public class Exercise_DB extends SQLiteAssetHelper {
         return user;
     }
 
-
-
-
-
-
     //
     // Progress DAO
     // TODO code and packaged db table need updated to coincide with UI
 
 
     // Add ExerciseEntry
-    public void addExerciseProgress(int datetime, int id, int sets, int reps, int length) {
+    public void addExerciseProgress(long start_datetime, long end_datetime, int sets, int exercise_id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Add entry
         String sql = "INSERT INTO " + TABLE_PROGRESS
-                + " (" + COLUMN_DATETIME + ", " + COLUMN_EXERCISE_ID + ", " + COLUMN_SETS + ", " + COLUMN_REPS + ", " + COLUMN_LENGTH
-                + ") VALUES(" + datetime + ", " + id + ", " + sets + ", " + reps + ", " + length + ")";
+                + " (" + COLUMN_START_DATETIME + ", " + COLUMN_END_DATETIME + ", " + COLUMN_SETS + ", " + COLUMN_EXERCISE_ID
+                + ") VALUES(" + start_datetime + ", " + end_datetime + ", " + sets + ", " + exercise_id + ")";
         db.execSQL(sql);
 
         db.close();
@@ -165,17 +153,16 @@ public class Exercise_DB extends SQLiteAssetHelper {
     public List<ExerciseProgress> getExerciseProgressList() {
         List<ExerciseProgress> ExerciseProgressList = new ArrayList<ExerciseProgress>();
 
-        String selectQuery = "SELECT * FROM " + TABLE_PROGRESS + " ORDER BY " + COLUMN_DATETIME;
+        String selectQuery = "SELECT * FROM " + TABLE_PROGRESS + " ORDER BY " + COLUMN_START_DATETIME;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 ExerciseProgress entry = new ExerciseProgress(
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_DATETIME)),
+                        cursor.getInt(cursor.getColumnIndex(COLUMN_START_DATETIME)),
+                        cursor.getInt(cursor.getColumnIndex(COLUMN_END_DATETIME)),
                         cursor.getInt(cursor.getColumnIndex(COLUMN_EXERCISE_ID)),
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_SETS)),
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_REPS)),
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_LENGTH))
+                        cursor.getInt(cursor.getColumnIndex(COLUMN_SETS))
                 );
                 ExerciseProgressList.add(entry);
             } while (cursor.moveToNext());

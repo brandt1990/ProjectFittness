@@ -7,6 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ExerciseActivity">
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
@@ -41,6 +42,7 @@
                         android:layout_weight="1"
                         android:text="Date:"
                         android:textStyle="bold" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -48,6 +50,7 @@
                         android:layout_weight="1"
                         android:text="Start Time:"
                         android:textStyle="bold" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -70,8 +73,7 @@
                         android:layout_gravity="left"
                         android:layout_weight="1"
                         android:editable="false"
-                        android:text="DateTime.Now"
-                        android:enabled="false"/>
+                        android:text="DateTime" />
 
                     <EditText
                         android:id="@+id/workoutStartTime"
@@ -79,21 +81,28 @@
                         android:layout_height="wrap_content"
                         android:layout_column="1"
                         android:layout_weight="1"
-                        android:gravity="left"
                         android:editable="false"
+                        android:gravity="left"
                         android:text="..." />
+
                     <EditText
                         android:id="@+id/workoutEndTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="2"
                         android:layout_weight="1"
-                        android:gravity="left"
                         android:editable="false"
+                        android:gravity="left"
                         android:paddingRight="10dp"
                         android:text="..." />
                 </TableRow>
+            </TableLayout>
 
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:weightSum="1">
                 <!-- Exercise Selection -->
                 <TableRow
                     android:layout_width="match_parent"
@@ -107,19 +116,30 @@
                         android:text="Exercise:"
                         android:textStyle="bold" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
+
                     <Spinner
+                        android:id="@+id/spinnerExercises"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:id="@+id/spinnerExercises"
+                        android:layout_weight="3"
                         android:entries="@array/exercise_array"
                         android:spinnerMode="dropdown" />
 
                 </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:weightSum="3">
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,18 +149,67 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_column="0"
-                        android:text="Length:"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Sets"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Length"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Reps"
                         android:textStyle="bold" />
                 </TableRow>
-            </TableLayout>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:editable="false"
-                android:id="@+id/editText" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvSets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="3"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/tvLen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="30"
+                        android:visibility="gone"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/tvReps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="10"
+                        android:textSize="30dp" />
+                </TableRow>
+            </TableLayout>
 
         </LinearLayout>
 
@@ -153,14 +222,16 @@
             android:padding="20dp">
 
             <TextView
-                android:id="@+id/workoutTimeSpent"
+                android:id="@+id/workoutSetsTimeLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="0"
-                android:text="00:00:00"
                 android:layout_gravity="center"
-                android:padding="20dp"
-                android:textStyle="bold" />
+                android:padding="16dp"
+                android:text="00"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnBeginEndWorkout"
@@ -169,9 +240,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Begin Workout"
-                android:onClick="onClickBeginEndWorkout"/>
-
+                android:onClick="onClickBeginEndWorkout"
+                android:text="Begin Workout" />
 
             <Button
                 android:id="@+id/btnExerciseInfo"
@@ -180,8 +250,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
-                android:text="Add previous workout"
-                android:onClick="onClickExerciseInfo"/>
+                android:onClick="onClickExerciseInfo"
+                android:text="Add previous workout" />
 
         </LinearLayout>
 

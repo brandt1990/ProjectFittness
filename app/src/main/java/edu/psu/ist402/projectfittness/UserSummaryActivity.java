@@ -3,11 +3,17 @@ package edu.psu.ist402.projectfittness;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class UserSummaryActivity extends AppCompatActivity {
 
@@ -28,8 +34,36 @@ public class UserSummaryActivity extends AppCompatActivity {
         //todo convert cm to ft
         userHeight.setText(String.valueOf(user.getHeight()) + " cm");
         userWeight.setText(String.valueOf(user.getWeight()) + " lbs.");
-
         userAge.setText(String.valueOf(user.getAge()) + " years old");
+
+        //Load exercise history
+        TableLayout tLayout = (TableLayout) findViewById(R.id.tLayout);
+        TableRow temp = (TableRow) findViewById(R.id.exerciseRowTemplate);
+        ViewGroup.LayoutParams params = temp.getLayoutParams(); // get row params
+
+
+        List<ExerciseProgress> exerciseProgress = db.getExerciseProgressList();
+
+        for (ExerciseProgress eP : exerciseProgress) {
+            // Create row
+            TableRow tr = new TableRow(tLayout.getContext());
+            tr.setLayoutParams(params); // Set rows params as set in XML
+            eP.getEnd_datetime();
+
+            //Add Column 1 - Month
+            TextView textV = new TextView(tr.getContext());
+            textV.setText(String.valueOf(eP.getExercise_id()));
+            tr.addView(textV, 0);
+
+            Log.d("MainActivity", "Add column 2");
+            //Add Column 2 - Interest
+            textV = new TextView(tr.getContext());
+            textV.setText(String.valueOf(eP.getEnd_datetime()));
+            tr.addView(textV, 1);
+            tLayout.addView(tr);
+
+        }
+
     }
 
 

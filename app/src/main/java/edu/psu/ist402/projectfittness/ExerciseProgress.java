@@ -5,45 +5,25 @@ package edu.psu.ist402.projectfittness;
  */
 
 public class ExerciseProgress {
-    private int datetime;
+
+    private long start_datetime;
+    private long end_datetime;
     private int exercise_id;
     private int sets;
-    private int reps;
-    private int length;
 
-
-    public ExerciseProgress(int datetime, int exercise_id, int sets, int reps, int length) {
-        this.datetime = datetime;
+    public ExerciseProgress(long startDateTime, long endDateTime, int exercise_id, int sets) {
+        this.start_datetime = startDateTime;
+        this.end_datetime = endDateTime;
         this.exercise_id = exercise_id;
         this.sets = sets;
-        this.reps = reps;
-        this.length = length;
     }
 
 
     public ExerciseProgress() {
-        this.datetime = 0;
+        this.start_datetime = 0;
+        this.end_datetime = 0;
         this.exercise_id = 0;
         this.sets = 0;
-        this.reps = 0;
-        this.length = 0;
-    }
-
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public int getDatetime() {
-        return datetime;
-    }
-
-    public void setDatetime(int datetime) {
-        this.datetime = datetime;
     }
 
     public int getExercise_id() {
@@ -62,13 +42,19 @@ public class ExerciseProgress {
         this.sets = sets;
     }
 
-    public int getReps() {
-        return reps;
+    public long getStart_datetime() {
+        return start_datetime;
     }
 
-    public void setReps(int reps) {
-        this.reps = reps;
+    public void setStart_datetime(long start_datetime) {
+        this.start_datetime = start_datetime;
     }
 
+    public long getEnd_datetime() {
+        return end_datetime;
+    }
 
+    public void setEnd_datetime(long end_datetime) {
+        this.end_datetime = end_datetime;
+    }
 }
