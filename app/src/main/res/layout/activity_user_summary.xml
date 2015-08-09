@@ -162,7 +162,7 @@
                         android:id="@+id/exerciseRowTemplate"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/exerciseNameTemplate"

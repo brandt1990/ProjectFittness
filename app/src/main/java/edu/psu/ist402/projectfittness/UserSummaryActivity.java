@@ -70,7 +70,7 @@ public class UserSummaryActivity extends AppCompatActivity {
             textV.setText(String.valueOf(eP.getSets()));
             textV.setVisibility(View.VISIBLE);
             textV.setWidth(dpToPixels(80));
-            textV.setPadding(dpToPixels(30),0,0,0);
+            textV.setPadding(dpToPixels(30), 0, 0, 0);
             tr.addView(textV, 1);
 
 
@@ -80,7 +80,7 @@ public class UserSummaryActivity extends AppCompatActivity {
             textV.setText(String.valueOf(getDateTime(Long.parseLong(eP.getEnd_datetime()), "MM/dd/yyyy HH:mm")));
             textV.setVisibility(View.VISIBLE);
             tr.addView(textV, 2);
-            textV.setWidth(dpToPixels(10));
+            //textV.setWidth(dpToPixels(10));
             tLayout.addView(tr);
         }
     }

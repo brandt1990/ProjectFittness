@@ -208,9 +208,8 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
                 int t = Integer.parseInt(selectedExerciseInfo.getSetCount()) - 1;
                 currentExerciseProgress.setSets(currentExerciseProgress.getSets() + 1);
 
-                if (t == 0) {
-                    Speak("Great! on to next exercise.");
-                    Speak("You can wait another 60 seconds if you like.");
+                if (t == -1) {
+
                     exit = true;
                 } else {
                     if (!booWaiting) {
@@ -221,7 +220,12 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
                             Speak("Only " + t + " more set to go.");
                         } else {
                             Speak("OK. now wait 60 seconds.");
-                            Speak(t + " more sets to go.");
+                            if (t != 0) {
+                                Speak(t + " more sets to go.");
+                            } else {
+                                Speak("Great! on to next exercise.");
+                                Speak("You can wait another 60 seconds if you like.");
+                            }
                         }
                         booWaiting = true;
                     } else {
@@ -271,6 +275,7 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
 
     public void startWorkout() {
 
+        ((Button) findViewById(R.id.btnAddWorkout)).setEnabled(false);
         startTime = System.currentTimeMillis() + (Integer.parseInt(selectedExerciseInfo.getSetLength()) * 1000);
         timerHandler = new Handler();
         timerHandler.postDelayed(timerRunnable, 0);
@@ -287,18 +292,17 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
 
     public void endWorkout(boolean forceEnd) {
 
+        ((Button) findViewById(R.id.btnAddWorkout)).setEnabled(true);
         endWorkoutForce = forceEnd;
+
+        Date dt = new Date();
+        currentExerciseProgress.setStart_datetime(String.valueOf(dt.getTime()));
+        ((EditText) findViewById(R.id.workoutEndTime)).setText(
+                new SimpleDateFormat("HH:mm:ss").format(dt));
 
         if (endWorkoutForce) {
             timerHandler.removeCallbacks(timerRunnable);
             workoutSetsTimeLeft.setVisibility(View.GONE);
-            //Calendar now = Calendar.getInstance();
-            //Date dt = now.getTime();
-            //currentExerciseProgress.setStart_datetime(now.getTimeInMillis());
-            Date dt = new Date();
-            currentExerciseProgress.setStart_datetime(String.valueOf(dt.getTime()));
-            ((EditText) findViewById(R.id.workoutEndTime)).setText(
-                    new SimpleDateFormat("HH:mm:ss").format(dt));
         }
 
         // TODO updateLog/store data
