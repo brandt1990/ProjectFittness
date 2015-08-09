@@ -244,14 +244,15 @@
                 android:text="Begin Workout" />
 
             <Button
-                android:id="@+id/btnExerciseInfo"
+                android:id="@+id/btnAddWorkout"
                 style="@style/button_text"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_button"
                 android:onClick="onClickExerciseInfo"
-                android:text="Add previous workout" />
+                android:text="Add previous workout"
+                android:visibility="gone" />
 
         </LinearLayout>
 
