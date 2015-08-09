@@ -3,6 +3,7 @@ package edu.psu.ist402.projectfittness;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,6 +61,7 @@ public class UserSummaryActivity extends AppCompatActivity {
             //textV.setLayoutParams(tv1.getLayoutParams());
             textV.setText(String.valueOf(db.getInfoForID(eP.getExercise_id()).getExercise_name()));
             textV.setVisibility(View.VISIBLE);
+            textV.setWidth(dpToPixels(140));
             tr.addView(textV, 0, tv1.getLayoutParams());
 
             //Add Column 2 - Sets completed
@@ -67,6 +69,8 @@ public class UserSummaryActivity extends AppCompatActivity {
             textV.setLayoutParams(tv2.getLayoutParams());
             textV.setText(String.valueOf(eP.getSets()));
             textV.setVisibility(View.VISIBLE);
+            textV.setWidth(dpToPixels(80));
+            textV.setPadding(dpToPixels(30),0,0,0);
             tr.addView(textV, 1);
 
 
@@ -76,10 +80,18 @@ public class UserSummaryActivity extends AppCompatActivity {
             textV.setText(String.valueOf(getDateTime(Long.parseLong(eP.getEnd_datetime()), "MM/dd/yyyy HH:mm")));
             textV.setVisibility(View.VISIBLE);
             tr.addView(textV, 2);
-
+            textV.setWidth(dpToPixels(10));
             tLayout.addView(tr);
         }
     }
+
+
+    // Convert dp to pixels
+    private int dpToPixels(int dp) {
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
+        return (int) px;
+    }
+
 
     private String getDateTime(long ms, String format) {
         //Calendar calendar = Calendar.getInstance();
@@ -108,12 +120,6 @@ public class UserSummaryActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-
-    // Open exercise info activity when ExerciseInfo is clicked
-    // TODO
-    public void onClickExerciseInfo(View view) {
-
-    }
 
 
 

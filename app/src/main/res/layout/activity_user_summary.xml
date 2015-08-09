@@ -171,23 +171,25 @@
                             android:layout_column="0"
                             android:textColor="@color/white"
                             android:layout_gravity="left"
-                            android:text="TEMPLATE" />
+                            android:text=""
+                            android:maxWidth="140dp"/>
 
                         <TextView
                             android:id="@+id/exerciseSetsTemplate"
                             android:layout_width="80dp"
+                            android:maxWidth="80dp"
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:gravity="right"
                             android:paddingRight="20dp"
-                            android:text="000" />
+                            android:text="" />
                         <TextView
                             android:id="@+id/exerciseDateTimeTemplate"
                             android:layout_height="wrap_content"
                             android:layout_column="2"
                             android:gravity="right"
                             android:paddingRight="10dp"
-                            android:text="TEMPLATE" />
+                            android:text="" />
                     </TableRow>
 
                 </TableLayout>
