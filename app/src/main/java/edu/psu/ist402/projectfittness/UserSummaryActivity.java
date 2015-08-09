@@ -3,7 +3,6 @@ package edu.psu.ist402.projectfittness;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +12,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class UserSummaryActivity extends AppCompatActivity {
@@ -38,6 +39,10 @@ public class UserSummaryActivity extends AppCompatActivity {
 
         //Load exercise history
         TableLayout tLayout = (TableLayout) findViewById(R.id.tLayout);
+        TextView tv1 = (TextView) findViewById(R.id.exerciseNameTemplate);
+        TextView tv2 = (TextView) findViewById(R.id.exerciseSetsTemplate);
+        TextView tv3 = (TextView) findViewById(R.id.exerciseDateTimeTemplate);
+
         TableRow temp = (TableRow) findViewById(R.id.exerciseRowTemplate);
         ViewGroup.LayoutParams params = temp.getLayoutParams(); // get row params
 
@@ -50,20 +55,37 @@ public class UserSummaryActivity extends AppCompatActivity {
             tr.setLayoutParams(params); // Set rows params as set in XML
             eP.getEnd_datetime();
 
-            //Add Column 1 - Month
+            //Add Column 1 - Exercise
             TextView textV = new TextView(tr.getContext());
-            textV.setText(String.valueOf(eP.getExercise_id()));
-            tr.addView(textV, 0);
+            //textV.setLayoutParams(tv1.getLayoutParams());
+            textV.setText(String.valueOf(db.getInfoForID(eP.getExercise_id()).getExercise_name()));
+            textV.setVisibility(View.VISIBLE);
+            tr.addView(textV, 0, tv1.getLayoutParams());
 
-            Log.d("MainActivity", "Add column 2");
-            //Add Column 2 - Interest
+            //Add Column 2 - Sets completed
             textV = new TextView(tr.getContext());
-            textV.setText(String.valueOf(eP.getEnd_datetime()));
+            textV.setLayoutParams(tv2.getLayoutParams());
+            textV.setText(String.valueOf(eP.getSets()));
+            textV.setVisibility(View.VISIBLE);
             tr.addView(textV, 1);
+
+
+            //Add Column 3 - Date time ended
+            textV = new TextView(tr.getContext());
+            textV.setLayoutParams(tv3.getLayoutParams());
+            textV.setText(String.valueOf(getDateTime(Long.parseLong(eP.getEnd_datetime()), "MM/dd/yyyy HH:mm")));
+            textV.setVisibility(View.VISIBLE);
+            tr.addView(textV, 2);
+
             tLayout.addView(tr);
-
         }
+    }
 
+    private String getDateTime(long ms, String format) {
+        //Calendar calendar = Calendar.getInstance();
+        //calendar.setTimeInMillis(ms);
+        //return new SimpleDateFormat(format).format(calendar.getTime());
+        return new SimpleDateFormat(format).format(new Date(ms));
     }
 
 

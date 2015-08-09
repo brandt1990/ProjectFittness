@@ -121,7 +121,7 @@ public class Exercise_DB extends SQLiteAssetHelper {
 
 
     // Add ExerciseEntry
-    public void addExerciseProgress(long start_datetime, long end_datetime, int sets, int exercise_id) {
+    public void addExerciseProgress(String start_datetime, String end_datetime, int sets, int exercise_id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Add entry
@@ -158,8 +158,8 @@ public class Exercise_DB extends SQLiteAssetHelper {
         if (cursor.moveToFirst()) {
             do {
                 ExerciseProgress entry = new ExerciseProgress(
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_START_DATETIME)),
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_END_DATETIME)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_START_DATETIME)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_END_DATETIME)),
                         cursor.getInt(cursor.getColumnIndex(COLUMN_EXERCISE_ID)),
                         cursor.getInt(cursor.getColumnIndex(COLUMN_SETS))
                 );

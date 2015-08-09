@@ -277,9 +277,9 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
         timerHandler = new Handler();
         timerHandler.postDelayed(timerRunnable, 0);
         workoutSetsTimeLeft.setVisibility(View.VISIBLE);
-        Calendar now = Calendar.getInstance();
-        Date dt = now.getTime();
-        currentExerciseProgress.setEnd_datetime(now.getTimeInMillis());
+        //Calendar now = Calendar.getInstance();
+        Date dt = new Date();
+        currentExerciseProgress.setEnd_datetime(String.valueOf(dt.getTime()));
         ((EditText) findViewById(R.id.workoutStartTime)).setText(
                 new SimpleDateFormat("HH:mm:ss").format(dt));
 
@@ -294,9 +294,11 @@ public class ExerciseActivity extends ActionBarActivity implements TextToSpeech.
         if (endWorkoutForce) {
             timerHandler.removeCallbacks(timerRunnable);
             workoutSetsTimeLeft.setVisibility(View.GONE);
-            Calendar now = Calendar.getInstance();
-            Date dt = now.getTime();
-            currentExerciseProgress.setStart_datetime(now.getTimeInMillis());
+            //Calendar now = Calendar.getInstance();
+            //Date dt = now.getTime();
+            //currentExerciseProgress.setStart_datetime(now.getTimeInMillis());
+            Date dt = new Date();
+            currentExerciseProgress.setStart_datetime(String.valueOf(dt.getTime()));
             ((EditText) findViewById(R.id.workoutEndTime)).setText(
                     new SimpleDateFormat("HH:mm:ss").format(dt));
         }
