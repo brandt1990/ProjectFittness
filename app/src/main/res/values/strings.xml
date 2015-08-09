@@ -15,4 +15,6 @@
     <string name="button_exercise_info">Exercise Info</string>
     <string name="button_start_exercise">Start Exercise</string>
     <string name="button_play_music">Play Music</string>
+
+    <color name="white">#FFFFFF</color>
 </resources>
