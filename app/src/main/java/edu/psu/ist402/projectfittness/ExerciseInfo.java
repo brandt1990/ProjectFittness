@@ -1,7 +1,8 @@
 package edu.psu.ist402.projectfittness;
 
 /**
- *  Stores data for a single exercise
+ * Exercise Info Model
+ * Stores data for a single exercise
  */
 
 public class ExerciseInfo {
