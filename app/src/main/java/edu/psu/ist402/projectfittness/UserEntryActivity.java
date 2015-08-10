@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,6 +27,12 @@ public class UserEntryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userentry);
 
+        updateUserInfo();
+
+    }
+
+
+    void updateUserInfo() {
         user = new User();
         Exercise_DB db = new Exercise_DB(this);
         user = db.getUserInfo();
@@ -35,20 +40,6 @@ public class UserEntryActivity extends Activity {
         addDatePickerOn((EditText) findViewById(R.id.editText_DOB));
 
         displayUserInfo();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        // Checks the orientation of the screen for landscape and portrait and set portrait mode always
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            //setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            setContentView(R.layout.activity_userentry_landscape);
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            setContentView(R.layout.activity_userentry);
-        }
     }
 
     private void addDatePickerOn(final EditText txtObj) {

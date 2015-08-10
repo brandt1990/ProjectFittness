@@ -20,8 +20,8 @@
         <activity
             android:name=".UserEntryActivity"
             android:label="@string/title_activity_entry_activity"
-            android:configChanges="orientation|screenSize"
             android:noHistory="true" >
+            <!--android:configChanges="orientation|screenSize"-->
         </activity>
         <activity
             android:name=".UserSummaryActivity"
